@@ -11,18 +11,48 @@ def GetAllProducts():
 
 def GetProduct():
     print("Búsqueda de producto")
-    
+    producto = input("Ingrese el ID del producto que desea consultar: ")
+    url = f'https://fakestoreapi.com/products/{producto}'
+    respuesta = requests.get(url).json()
+    print("---------------------------------------------")
+    print(json.dumps(respuesta, indent=4,ensure_ascii=False))
+
 def AddProduct():
     print("Agregar producto")
-
+    producto_agregar = {
+        "title": input("Ingrese el título del producto: "),
+        "price": float(input("Ingrese el precio del producto: ")),
+        "description": input("Ingrese la descripción del producto: "),
+        "image": input("Ingrese la URL de la imagen del producto: "),
+        "category": input("Ingrese la categoría del producto: ")
+    }
+    url = 'https://fakestoreapi.com/products'
+    respuesta = requests.post(url, json=producto_agregar).json()
+    print("---------------------------------------------")
+    print(json.dumps(respuesta, indent=4, ensure_ascii=False))
 
 def UpdateProduct():
     print("Modificar producto")
-
+    producto = input("Ingrese el ID del producto que desea modificar: ")
+    producto_act = {
+        "title": input("Ingrese el nuevo título del producto: "),
+        "price": float(input("Ingrese el nuevo precio del producto: ")),
+        "description": input("Ingrese la nueva descripción del producto: "),
+        "image": input("Ingrese la nueva URL de la imagen del producto: "),
+        "category": input("Ingrese la nueva categoría del producto: ")
+    }
+    url = f'https://fakestoreapi.com/products/{producto}'
+    respuesta = requests.put(url, json=producto_act).json()
+    print("---------------------------------------------")
+    print(json.dumps(respuesta, indent=4, ensure_ascii=False))
 
 def DeleteProduct():
     print("Eliminación de producto")
-
+    producto = input("Ingrese el ID del producto que desea eliminar: ")
+    url = f'https://fakestoreapi.com/products/{producto}'
+    respuesta = requests.delete(url).json()
+    print("---------------------------------------------")
+    print(json.dumps(respuesta, indent=4, ensure_ascii=False))
 
 def mostrar_menu():
     print("\nAdministración de Productos:")
