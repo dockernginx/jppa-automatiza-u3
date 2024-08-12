@@ -60,25 +60,5 @@ def delete_estudiante_id(num_control):
             return {'Status': 'Ok', 'mensaje': 'El estudiante ha sido removido'}, 200
     return {'error': 'Estudiante no encontrado'}, 404
 
-'''Modificar un estudiante'''
-@app.put('/estudiantes')
-def update_estudiante():
-    if request.is_json:
-        data = request.get_json()
-        
-        # Validar que data tenga 'numero_control', 'nombre', 'edad' y 'carrera'
-        if 'numero_control' not in data or 'nombre' not in data or 'edad' not in data or 'carrera' not in data:
-            return {'error': 'Datos incompletos, se requiere numero_control, nombre, edad y carrera'}, 400
-        
-        for estudiante in estudiantes:
-            if estudiante['numero_control'] == int(data['numero_control']):
-                estudiante['nombre'] = data['nombre']
-                estudiante['edad'] = data['edad']
-                estudiante['carrera'] = data['carrera']
-                return {'Status': 'Ok', 'mensaje': 'Se ha actualizado el registro'}, 200
-        return {'status': 'error', 'mensaje': 'No se ha encontrado registro de estudiante'}, 404
-    return {'error': 'La solicitud debe ser JSON'}, 415
-
-
 if __name__ == '__main__':
     app.run(debug=True)
